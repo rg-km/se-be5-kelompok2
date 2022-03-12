@@ -50,8 +50,8 @@ let apple1 = initApple();
 let apple2 = initApple();
 
 function drawCell(ctx, x, y, img) {
-    let drawSnake = document.getElementById(img);
-    ctx.drawImage(drawSnake, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    let DRAW_SNAKE = document.getElementById(img);
+    ctx.drawImage(DRAW_SNAKE, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
 
 function drawScore(snake) {
