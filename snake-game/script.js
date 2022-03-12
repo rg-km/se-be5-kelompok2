@@ -55,12 +55,7 @@ function drawCell(ctx, x, y, color) {
 }
 
 function drawScore(snake) {
-    let scoreCanvas;
-    if (snake.color == snake1.color) {
-        scoreCanvas = document.getElementById("score1Board");
-    } else {
-        scoreCanvas = document.getElementById("score2Board");
-    }
+    let scoreCanvas = document.getElementById("score1Board");
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
