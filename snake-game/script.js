@@ -126,6 +126,16 @@ function eat(snake, apple) {
   }
 }
 
+function eatlife(snake, lifes) {
+  for (let i = 0; i < lifes.length; i++) {
+    if (snake.head.x === lifes[i].pos.x && snake.head.y === lifes[i].pos.y) {
+      snake.relife.push({ x: snake.relife.length + 1, y: 1 });
+      lifes.splice(i, 1);
+      document.getElementById("eating-life").play();
+    }
+  }
+}
+
 function moveLeft(snake) {
   snake.head.x--;
   teleport(snake);
