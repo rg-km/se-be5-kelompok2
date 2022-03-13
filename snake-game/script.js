@@ -37,6 +37,11 @@ function initSnake(color) {
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
+    relife: [
+      { x: 1, y: 1 },
+      { x: 2, y: 1 },
+      { x: 3, y: 1 },
+    ],
     level: 1,
     speed: 150,
   };
