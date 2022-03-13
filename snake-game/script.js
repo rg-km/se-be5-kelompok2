@@ -223,6 +223,52 @@ function drawApple(ctx, x, y) {
   let IMG_APPLE = document.getElementById("apple");
   ctx.drawImage(IMG_APPLE, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
+function drawSnakeHead(ctx, snake) {
+  var img;
+  // Check which direction snake headed
+  switch (snake.direction) {
+    case DIRECTION.LEFT:
+      img = document.getElementById("head-snake-left");
+      ctx.drawImage(
+        img,
+        snake.head.x * CELL_SIZE,
+        snake.head.y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+      break;
+    case DIRECTION.RIGHT:
+      img = document.getElementById("head-snake-right");
+      ctx.drawImage(
+        img,
+        snake.head.x * CELL_SIZE,
+        snake.head.y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+      break;
+    case DIRECTION.UP:
+      img = document.getElementById("head-snake-up");
+      ctx.drawImage(
+        img,
+        snake.head.x * CELL_SIZE,
+        snake.head.y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+      break;
+    case DIRECTION.DOWN:
+      img = document.getElementById("head-snake-down");
+      ctx.drawImage(
+        img,
+        snake.head.x * CELL_SIZE,
+        snake.head.y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+      break;
+  }
+}
 
 function draw() {
   setInterval(function () {
