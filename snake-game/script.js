@@ -274,16 +274,35 @@ function draw() {
   setInterval(function () {
     let snakeCanvas = document.getElementById("snakeBoard");
     let ctx = snakeCanvas.getContext("2d");
+
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
     drawbarrierWalls(ctx, snake, barrierWalls);
 
-    drawCell(ctx, snake1.head.x, snake1.head.y, "head");
-    for (let i = 1; i < snake1.body.length; i++) {
-      drawCell(ctx, snake1.body[i].x, snake1.body[i].y, "body");
+    drawSnakeHead(ctx, snake);
+    var bodyImage = document.getElementById("body-snake");
+    for (let i = 1; i < snake.body.length; i++) {
+      ctx.drawImage(
+        bodyImage,
+        snake.body[i].x * CELL_SIZE,
+        snake.body[i].y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
     }
-    drawApple(ctx, apple1.position.x, apple1.position.y);
-    drawApple(ctx, apple2.position.x, apple2.position.y);
+
+    for (let i = 0; i < apples.length; i++) {
+      let apple = apples[i];
+
+      var img = document.getElementById("apple");
+      ctx.drawImage(
+        img,
+        apple.position.x * CELL_SIZE,
+        apple.position.y * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+    }
 
     for (let i = 0; i < lifes.length; i++) {
       drawRemainingLife(ctx, lifes[i]);
@@ -300,7 +319,9 @@ function draw() {
       );
     }
 
-    drawScore(snake1);
+    drawScore(snake);
+    drawSpeed(snake);
+    drawLevel(snake);
   }, REDRAW_INTERVAL);
 }
 
