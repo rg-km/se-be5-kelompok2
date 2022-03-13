@@ -345,11 +345,27 @@ function teleport(snake) {
   }
 }
 
-function eat(snake, apple) {
-  if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
-    apple.position = initPosition();
-    snake.score++;
-    snake.body.push({ x: snake.head.x, y: snake.head.y });
+function eat(snake, apples) {
+  for (let i = 0; i < apples.length; i++) {
+    let apple = apples[i];
+    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+      apple.position = initPosition();
+      snake.score++;
+      document.getElementById("eating").play();
+      // Check level up
+      if (snake.score % 5 === 0 && snake.level < 5) {
+        snake.level = getLevel(snake.score);
+        snake.speed = getSpeed(snake.level);
+        document.getElementById("level-up").play();
+        alert("Level Up to " + snake.level);
+      }
+
+      // show life
+      if (showLifes(snake.score)) {
+        lifes.push({ pos: initPosition() });
+      }
+      snake.body.push({ x: snake.head.x, y: snake.head.y });
+    }
   }
 }
 
