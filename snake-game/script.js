@@ -381,6 +381,26 @@ function getLevel(score) {
   }
 }
 
+function checkbarrierWallsCollision(snake, barrierWalls) {
+  let walls = barrierWalls.find(function (element) {
+    return element.level === snake.level;
+  }).walls;
+
+  for (let i = 0; i < walls.length; i++) {
+    if (
+      snake.head.x >= walls[i].startX &&
+      snake.head.x <= walls[i].endX &&
+      snake.head.y >= walls[i].startY &&
+      snake.head.y <= walls[i].endY
+    ) {
+      document.getElementById("crash").play();
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function checkIsCollide(snakes, barrierWalls) {
   let isCollide = false;
   // Check whether snake collide with its body
