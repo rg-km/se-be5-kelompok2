@@ -381,24 +381,47 @@ function getLevel(score) {
   }
 }
 
-function checkCollision(snakes) {
+function checkIsCollide(snakes, barrierWalls) {
   let isCollide = false;
-  //this
-  for (let i = 0; i < snakes.length; i++) {
-    for (let j = 0; j < snakes.length; j++) {
-      for (let k = 1; k < snakes[j].body.length; k++) {
-        if (
-          snakes[i].head.x == snakes[j].body[k].x &&
-          snakes[i].head.y == snakes[j].body[k].y
-        ) {
-          isCollide = true;
-        }
-      }
+  // Check whether snake collide with its body
+  for (let k = 1; k < snakes.body.length; k++) {
+    if (
+      snakes.head.x == snakes.body[k].x &&
+      snakes.head.y == snakes.body[k].y
+    ) {
+      document.getElementById("crash").play();
+      isCollide = true;
     }
   }
+
+  // Check whether snake collide with barrierWalls
+  if (checkbarrierWallsCollision(snakes, barrierWalls)) {
+    isCollide = true;
+  }
+
   if (isCollide) {
-    alert("Game over");
-    snake1 = initSnake("purple");
+    snake.relife.pop();
+    if (snake.relife.length === 0) {
+      document.getElementById("gameover").play();
+      alert("Game Over!");
+      snake = initSnake("green");
+      apples = [
+        {
+          color: "red",
+          position: initPosition(),
+        },
+        {
+          color: "green",
+          position: initPosition(),
+        },
+      ];
+      lifes = [];
+    } else {
+      snake = {
+        ...snake,
+        ...initHeadAndBody(),
+      };
+    }
   }
   return isCollide;
 }
