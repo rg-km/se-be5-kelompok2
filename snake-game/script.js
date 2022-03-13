@@ -46,16 +46,19 @@ function initSnake(color) {
     speed: 150,
   };
 }
-let snake1 = initSnake("purple");
+let snake = initSnake("purple");
 let lifes = [];
 
-function initApple() {
-  return {
+let apples = [
+  {
+    color: "red",
     position: initPosition(),
-  };
-}
-let apple1 = initApple();
-let apple2 = initApple();
+  },
+  {
+    color: "green",
+    position: initPosition(),
+  },
+];
 
 // level dinding
 let barrierWalls = [
@@ -200,7 +203,7 @@ function drawCell(ctx, x, y, img) {
 }
 
 function drawScore(snake) {
-  let scoreCanvas = document.getElementById("score1Board");
+  let scoreCanvas = document.getElementById("scoreBoard");
   let scoreCtx = scoreCanvas.getContext("2d");
 
   scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
@@ -345,6 +348,10 @@ function teleport(snake) {
   }
 }
 
+function getSpeed(level) {
+  return 150 - (level - 1) * 15;
+}
+
 function eat(snake, apples) {
   for (let i = 0; i < apples.length; i++) {
     let apple = apples[i];
@@ -382,29 +389,29 @@ function eatlife(snake, lifes) {
 function moveLeft(snake) {
   snake.head.x--;
   teleport(snake);
-  eat(snake, apple1);
-  eat(snake, apple2);
+  eat(snake, apples);
+  eatlife(snake, lifes);
 }
 
 function moveRight(snake) {
   snake.head.x++;
   teleport(snake);
-  eat(snake, apple1);
-  eat(snake, apple2);
+  eat(snake, apples);
+  eatlife(snake, lifes);
 }
 
 function moveDown(snake) {
   snake.head.y++;
   teleport(snake);
-  eat(snake, apple1);
-  eat(snake, apple2);
+  eat(snake, apples);
+  eatlife(snake, lifes);
 }
 
 function moveUp(snake) {
   snake.head.y--;
   teleport(snake);
-  eat(snake, apple1);
-  eat(snake, apple2);
+  eat(snake, apples);
+  eatlife(snake, lifes);
 }
 
 function drawbarrierWalls(ctx, snake, barrierWalls) {
@@ -550,7 +557,7 @@ function move(snake) {
       break;
   }
   moveBody(snake);
-  if (!checkIsCollide([snake1])) {
+  if (!checkIsCollide(snake, barrierWalls)) {
     setTimeout(function () {
       move(snake);
     }, MOVE_INTERVAL);
@@ -579,18 +586,18 @@ function turn(snake, direction) {
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowLeft") {
-    turn(snake1, DIRECTION.LEFT);
+    turn(snake, DIRECTION.LEFT);
   } else if (event.key === "ArrowRight") {
-    turn(snake1, DIRECTION.RIGHT);
+    turn(snake, DIRECTION.RIGHT);
   } else if (event.key === "ArrowUp") {
-    turn(snake1, DIRECTION.UP);
+    turn(snake, DIRECTION.UP);
   } else if (event.key === "ArrowDown") {
-    turn(snake1, DIRECTION.DOWN);
+    turn(snake, DIRECTION.DOWN);
   }
 });
 
 function initGame() {
-  move(snake1);
+  move(snake);
 }
 
 initGame();
