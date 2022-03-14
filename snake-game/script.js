@@ -9,7 +9,7 @@ const DIRECTION = {
   UP: 2,
   DOWN: 3,
 };
-const MOVE_INTERVAL = 150;
+// const MOVE_INTERVAL = 150;
 
 function initPosition() {
   return {
@@ -62,7 +62,10 @@ let apples = [
 
 // level dinding
 let barrierWalls = [
-  { level: 1, walls: [] },
+  {
+    level: 1,
+    walls: [],
+  },
   {
     level: 2,
     walls: [
@@ -101,7 +104,7 @@ let barrierWalls = [
     level: 4,
     walls: [
       {
-        startX: 13,
+        startX: 19,
         startY: 0,
         endX: 26,
         endY: 30,
@@ -109,10 +112,10 @@ let barrierWalls = [
         height: CELL_SIZE,
       },
       {
-        startX: 5,
-        startY: 13,
-        endX: 6,
-        endY: 13,
+        startX: 4,
+        startY: 5,
+        endX: 15,
+        endY: 5,
         width: CELL_SIZE,
         height: CELL_SIZE,
       },
@@ -131,30 +134,31 @@ let barrierWalls = [
     walls: [
       {
         startX: 5,
-        startY: 13,
-        endX: 6,
-        endY: 13,
+        startY: 15,
+        endX: 15,
+        endY: 15,
         width: CELL_SIZE,
         height: CELL_SIZE,
       },
       {
-        startX: 7,
-        startY: 22,
-        endX: 19,
-        endY: 22,
-        width: CELL_SIZE,
-        height: CELL_SIZE,
-      },
-      {
-        startX: 12,
-        startY: 22,
+        startX: 0,
+        startY: 19,
         endX: 26,
-        endY: 22,
+        endY: 23,
         width: CELL_SIZE,
         height: CELL_SIZE,
       },
       {
-        startX: 13,
+        startX: 5,
+        startY: 4,
+        endX: 15,
+        endY: 4,
+        width: CELL_SIZE,
+        height: CELL_SIZE,
+      },
+      {
+        // rIGHT
+        startX: 19,
         startY: 0,
         endX: 26,
         endY: 30,
@@ -162,6 +166,7 @@ let barrierWalls = [
         height: CELL_SIZE,
       },
       {
+        // top
         startX: 0,
         startY: 0,
         endX: 39,
@@ -170,25 +175,18 @@ let barrierWalls = [
         height: CELL_SIZE,
       },
       {
-        startX: 0,
-        startY: 39,
-        endX: 39,
-        endY: 39,
+        startX: 5,
+        startY: 10,
+        endX: 15,
+        endY: 10,
         width: CELL_SIZE,
         height: CELL_SIZE,
       },
       {
+        // LEFT
         startX: 0,
         startY: 0,
         endX: 0,
-        endY: 39,
-        width: CELL_SIZE,
-        height: CELL_SIZE,
-      },
-      {
-        startX: 39,
-        startY: 0,
-        endX: 39,
         endY: 39,
         width: CELL_SIZE,
         height: CELL_SIZE,
@@ -327,6 +325,7 @@ function draw() {
       );
     }
 
+    console.log(snake.speed);
     drawScore(snake);
     drawSpeed(snake);
     drawLevel(snake);
@@ -560,7 +559,7 @@ function move(snake) {
   if (!checkIsCollide(snake, barrierWalls)) {
     setTimeout(function () {
       move(snake);
-    }, MOVE_INTERVAL);
+    }, snake.speed);
   } else {
     initGame();
   }
